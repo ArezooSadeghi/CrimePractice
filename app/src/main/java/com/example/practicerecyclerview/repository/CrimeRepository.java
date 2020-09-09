@@ -65,4 +65,13 @@ public class CrimeRepository {
             }
         }
     }
+
+    public int getPosition(UUID crimeId) {
+        for (int i = 0; i < mCrimes.size(); i++) {
+            if (mCrimes.get(i).getId().equals(crimeId)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }

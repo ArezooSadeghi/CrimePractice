@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.practicerecyclerview.R;
 import com.example.practicerecyclerview.controller.activity.CrimeDetailActivity;
+import com.example.practicerecyclerview.controller.activity.CrimePagerActivity;
 import com.example.practicerecyclerview.model.Crime;
 import com.example.practicerecyclerview.repository.CrimeRepository;
 
@@ -80,7 +81,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = CrimeDetailActivity.newIntent(getActivity(), mCrime.getId());
+                    Intent intent = CrimePagerActivity.newIntent(getActivity(),mCrime.getId());
                     startActivity(intent);
                 }
             });
