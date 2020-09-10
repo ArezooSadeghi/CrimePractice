@@ -5,5 +5,4 @@
     android:id="@+id/crime_viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.activity.CrimePagerActivity">
-</androidx.viewpager2.widget.ViewPager2>
+    tools:context=".controller.activity.CrimePagerActivity"></androidx.viewpager2.widget.ViewPager2>

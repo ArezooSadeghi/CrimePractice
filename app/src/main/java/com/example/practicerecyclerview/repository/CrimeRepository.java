@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimeRepository {
+public class CrimeRepository implements IRepository {
     private static CrimeRepository sInstance;
     private final static int LIST_CRIME_SIZE = 100;
     private List<Crime> mCrimes;
@@ -29,6 +29,7 @@ public class CrimeRepository {
         return sInstance;
     }
 
+    @Override
     public List<Crime> getCrimes() {
         return mCrimes;
     }
@@ -37,10 +38,12 @@ public class CrimeRepository {
         mCrimes = crimes;
     }
 
+    @Override
     public void create(Crime crime) {
         mCrimes.add(crime);
     }
 
+    @Override
     public Crime read(UUID crimeId) {
         for (Crime crime : mCrimes) {
             if (crime.getId().equals(crimeId)) {
@@ -50,6 +53,7 @@ public class CrimeRepository {
         return null;
     }
 
+    @Override
     public void update(Crime crime) {
         Crime findCrime = read(crime.getId());
         findCrime.setTitle(crime.getTitle());
@@ -57,7 +61,8 @@ public class CrimeRepository {
         findCrime.setSolved(crime.isSolved());
     }
 
-    public void remove(Crime crime) {
+    @Override
+    public void delete(Crime crime) {
         for (int i = 0; i < mCrimes.size(); i++) {
             if (mCrimes.get(i).getId().equals(crime.getId())) {
                 mCrimes.remove(crime);
@@ -66,6 +71,7 @@ public class CrimeRepository {
         }
     }
 
+    @Override
     public int getPosition(UUID crimeId) {
         for (int i = 0; i < mCrimes.size(); i++) {
             if (mCrimes.get(i).getId().equals(crimeId)) {

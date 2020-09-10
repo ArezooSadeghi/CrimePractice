@@ -20,11 +20,14 @@ import com.example.practicerecyclerview.controller.activity.CrimeDetailActivity;
 import com.example.practicerecyclerview.controller.activity.CrimePagerActivity;
 import com.example.practicerecyclerview.model.Crime;
 import com.example.practicerecyclerview.repository.CrimeRepository;
+import com.example.practicerecyclerview.repository.IRepository;
 
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mRecyclerView;
+    private IRepository mCrimeRepository;
+    private CrimeAdapter mCrimeAdapter;
 
     public CrimeListFragment() {
     }
@@ -52,15 +55,27 @@ public class CrimeListFragment extends Fragment {
 
     private void initViews() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        //linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL); --> Horizantal Positioning
-        /*GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
-        mRecyclerView.setLayoutManager(gridLayoutManager); --> Grid Positioning*/
         mRecyclerView.setLayoutManager(linearLayoutManager);
         List<Crime> crimes;
-        CrimeRepository crimeRepository = CrimeRepository.getInstance();
-        crimes = crimeRepository.getCrimes();
-        CrimeAdapter crimeAdapter = new CrimeAdapter(crimes);
-        mRecyclerView.setAdapter(crimeAdapter);
+        mCrimeRepository = CrimeRepository.getInstance();
+        updateUI();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        List<Crime> crimes;
+        crimes = mCrimeRepository.getCrimes();
+        if (mCrimeAdapter == null) {
+            mCrimeAdapter = new CrimeAdapter(crimes);
+            mRecyclerView.setAdapter(mCrimeAdapter);
+        } else {
+            mCrimeAdapter.notifyDataSetChanged();
+        }
     }
 
     private void findViews(View view) {
@@ -81,7 +96,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = CrimePagerActivity.newIntent(getActivity(),mCrime.getId());
+                    Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
                     startActivity(intent);
                 }
             });

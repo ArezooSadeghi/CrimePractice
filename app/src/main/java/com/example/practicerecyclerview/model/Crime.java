@@ -1,5 +1,7 @@
 package com.example.practicerecyclerview.model;
 
+import com.example.practicerecyclerview.utils.DateUtils;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,7 +13,7 @@ public class Crime {
 
     public Crime() {
         mId = UUID.randomUUID();
-        mDate = new Date();
+        mDate = DateUtils.RandomDate();
     }
 
     public String getTitle() {

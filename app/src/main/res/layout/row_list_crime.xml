@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:padding="16dp">
+
     <TextView
         android:id="@+id/txt_crimetitle"
         android:layout_width="match_parent"
@@ -17,11 +18,13 @@
         android:layout_toLeftOf="@id/img_solved"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        tools:text="Crime Title"/>
+        tools:text="Crime Title" />
+
     <TextView
         android:id="@+id/txt_crimedate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txt_crimetitle"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
@@ -29,10 +32,10 @@
         android:layout_marginRight="2dp"
         android:layout_marginBottom="2dp"
         android:layout_toLeftOf="@id/img_solved"
-        android:layout_below="@id/txt_crimetitle"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        tools:text="Crime Date"/>
+        tools:text="Crime Date" />
+
     <ImageView
         android:id="@+id/img_solved"
         android:layout_width="40dp"
@@ -41,5 +44,5 @@
         android:layout_centerVertical="true"
         android:cropToPadding="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_handcuffs"/>
+        android:src="@drawable/ic_handcuffs" />
 </RelativeLayout>

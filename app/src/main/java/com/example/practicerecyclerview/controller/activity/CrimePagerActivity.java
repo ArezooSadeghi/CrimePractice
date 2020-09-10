@@ -15,16 +15,17 @@ import com.example.practicerecyclerview.R;
 import com.example.practicerecyclerview.controller.fragment.CrimeDetailFragment;
 import com.example.practicerecyclerview.model.Crime;
 import com.example.practicerecyclerview.repository.CrimeRepository;
+import com.example.practicerecyclerview.repository.IRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class CrimePagerActivity extends AppCompatActivity {
-
     private ViewPager2 mViewPagerCrime;
     private UUID mCrimeId;
-    private CrimeRepository mCrimeRepository;
+    private Crime mCrime;
+    private IRepository mCrimeRepository;
     public static final String EXTRA_CRIME_ID = "com.example.practicerecyclerview.EXTRA_CRIME_ID";
 
     @Override
@@ -38,6 +39,7 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     private void initViews() {
         mCrimeRepository = CrimeRepository.getInstance();
+        mCrime = mCrimeRepository.read(mCrimeId);
         int currentIndex = mCrimeRepository.getPosition(mCrimeId);
         List<Crime> crimes = mCrimeRepository.getCrimes();
         CrimePagerAdapter crimePagerAdapter = new CrimePagerAdapter(this, crimes);
@@ -47,6 +49,12 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     private void findViews() {
         mViewPagerCrime = findViewById(R.id.crime_viewpager);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateCrime();
     }
 
     public static Intent newIntent(Context context, UUID crimeId) {
@@ -63,6 +71,14 @@ public class CrimePagerActivity extends AppCompatActivity {
             mCrimes = crimes;
         }
 
+        public List<Crime> getCrimes() {
+            return mCrimes;
+        }
+
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
+        }
+
         @NonNull
         @Override
         public Fragment createFragment(int position) {
@@ -74,5 +90,9 @@ public class CrimePagerActivity extends AppCompatActivity {
         public int getItemCount() {
             return mCrimes.size();
         }
+    }
+
+    public void updateCrime() {
+        mCrimeRepository.update(mCrime);
     }
 }
